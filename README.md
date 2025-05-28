@@ -1,6 +1,6 @@
 # YouTube Downloader
 
-Un utilitaire simple et efficace pour télécharger des vidéos YouTube avec choix de qualité et répertoire personnalisable.
+Un utilitaire simple et efficace pour télécharger des vidéos YouTube et des playlists entières avec choix de qualité et répertoire personnalisable.
 
 ## Installation
 
@@ -24,7 +24,11 @@ pip install yt-dlp click colorama
 ### Commande de base
 
 ```bash
+# Vidéo unique
 yt-download "https://www.youtube.com/watch?v=VIDEO_ID"
+
+# Playlist entière
+yt-download "https://www.youtube.com/playlist?list=PLAYLIST_ID"
 ```
 
 ### Options disponibles
@@ -37,37 +41,62 @@ yt-download "https://www.youtube.com/watch?v=VIDEO_ID"
 | `--format` | `-f` | Format de sortie | mp4 |
 | `--info` | `-i` | Afficher les informations sans télécharger | False |
 | `--list-formats` | `-l` | Lister tous les formats disponibles | False |
+| `--playlist-start` | `-ps` | Index de début pour les playlists | 1 |
+| `--playlist-end` | `-pe` | Index de fin pour les playlists | None |
+| `--list-videos` | `-lv` | Lister toutes les vidéos d'une playlist | False |
 
 ### Exemples d'utilisation
 
-#### Téléchargement basique
+#### Téléchargement de vidéo unique
 ```bash
 yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ```
 
-#### Téléchargement en 720p dans un dossier spécifique
+#### Téléchargement de playlist entière
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -q 720p -o "/path/to/downloads"
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl"
 ```
 
-#### Téléchargement audio uniquement en MP3
+#### Téléchargement partiel de playlist (vidéos 5 à 10)
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -a -f mp3
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -ps 5 -pe 10
 ```
 
-#### Afficher les informations de la vidéo
+#### Téléchargement playlist en audio MP3 uniquement
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -i
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -a -f mp3
 ```
 
-#### Lister les formats disponibles
+#### Lister les vidéos d'une playlist
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -l
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -lv
 ```
 
-#### Téléchargement en format WebM
+#### Informations d'une playlist
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -f webm -q 1080p
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -i
+```
+
+#### Téléchargement playlist en 720p dans dossier spécifique
+```bash
+yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -q 720p -o "C:\Downloads\MaPlaylist"
+```
+
+## Organisation des fichiers
+
+### Vidéo unique
+```
+Downloads/youtube-downloads/
+└── Titre de la vidéo.mp4
+```
+
+### Playlist
+```
+Downloads/youtube-downloads/
+└── Nom de la Playlist/
+    ├── 01 - Première vidéo.mp4
+    ├── 02 - Deuxième vidéo.mp4
+    └── 03 - Troisième vidéo.mp4
 ```
 
 ## Formats supportés
@@ -124,8 +153,11 @@ Assurez-vous que FFmpeg est installé et accessible dans votre PATH.
 ### Erreur de permissions
 Vérifiez que vous avez les droits d'écriture dans le répertoire de destination.
 
-### Vidéo non disponible
-Certaines vidéos peuvent être géo-bloquées ou privées.
+### Vidéos non disponibles dans une playlist
+L'outil ignore automatiquement les vidéos privées ou supprimées et continue avec les suivantes.
+
+### Playlist très longue
+Utilisez les options `-ps` et `-pe` pour télécharger par segments.
 
 ## Licence
 

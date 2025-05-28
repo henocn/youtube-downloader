@@ -20,3 +20,6 @@ QUALITY_OPTIONS = {
 
 AUDIO_FORMATS = ["mp3", "m4a", "wav", "aac"]
 VIDEO_FORMATS = ["mp4", "webm", "mkv", "avi"]
+
+PLAYLIST_FOLDER_TEMPLATE = "%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s"
+SINGLE_VIDEO_TEMPLATE = "%(title)s.%(ext)s"

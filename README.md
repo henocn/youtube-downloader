@@ -7,7 +7,7 @@ Un utilitaire simple et efficace pour télécharger des vidéos YouTube avec cho
 ### Installation depuis les sources
 
 ```bash
-git clone https://github.com/yourusername/youtube-downloader.git
+git clone https://github.com/henocn/youtube-downloader.git
 cd youtube-downloader
 pip install -r requirements.txt
 pip install -e .

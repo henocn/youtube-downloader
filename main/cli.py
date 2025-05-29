@@ -2,7 +2,7 @@ import click
 import os
 from .downloader import YouTubeDownloader
 from .config import QUALITY_OPTIONS, AUDIO_FORMATS, VIDEO_FORMATS, DEFAULT_DOWNLOAD_PATH
-from .utils import print_success, print_error, print_info, print_warning, is_playlist_url
+from .utils import print_success, print_error, print_info, print_warning, is_playlist_url, get_playlist_type
 
 
 
@@ -136,14 +136,22 @@ def show_playlist_videos(downloader, url):
         return
     
     videos = downloader.list_playlist_videos(url)
+    print(get_playlist_type(url))
     if videos:
         print_info(f"=== Vidéos de la playlist ({len(videos)} vidéos) ===")
         for video in videos:
-            duration_str = f"{video['duration']//60}:{video['duration']%60:02d}" if video['duration'] else "N/A"
-            print(f"{video['index']:2d}. {video['title']} ({duration_str})")
+            if video['duration'] and isinstance(video['duration'], (int, float)):
+                duration_seconds = int(video['duration'])
+                duration_str = f"{duration_seconds//60}:{duration_seconds%60:02d}"
+            else:
+                duration_str = "N/A"
+            
+            title = video['title'][:60] + "..." if len(video['title']) > 60 else video['title']
+            print(f"{video['index']:3d}. {title} ({duration_str})")
+            
             if len(videos) > 20 and video['index'] == 20:
                 remaining = len(videos) - 20
-                print(f"    ... et {remaining} autres vidéos")
+                print(f"     ... et {remaining} autres vidéos")
                 break
     else:
         print_error("Impossible de récupérer la liste des vidéos")

@@ -200,11 +200,17 @@ class YouTubeDownloader:
                 videos = []
                 for i, entry in enumerate(info.get('entries', []), 1):
                     if entry:
+                        duration = entry.get('duration', 0)
+                        if duration and isinstance(duration, (int, float)):
+                            duration = int(duration)
+                        else:
+                            duration = 0
+                        
                         videos.append({
                             'index': i,
                             'title': entry.get('title', 'N/A'),
                             'id': entry.get('id', 'N/A'),
-                            'duration': entry.get('duration', 0),
+                            'duration': duration,
                             'url': f"https://www.youtube.com/watch?v={entry.get('id', '')}"
                         })
                 return videos

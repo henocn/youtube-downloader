@@ -63,6 +63,28 @@ def extract_video_id(url):
 
 
 #------------------------------------------------------------------#
+#                     Identifie le type de playlist               #
+#------------------------------------------------------------------#
+def get_playlist_type(url):
+    if "list=" in url:
+        playlist_id = extract_playlist_id(url)
+        if playlist_id:
+            if playlist_id.startswith('RD'):
+                return "Radio/Mix automatique (contenu dynamique)"
+            elif playlist_id.startswith('PL'):
+                return "Playlist utilisateur (contenu fixe)"
+            elif playlist_id.startswith('OLAK'):
+                return "Album musical (contenu fixe)"
+            elif playlist_id.startswith('UU'):
+                return "Uploads de chaîne (contenu évolutif)"
+            else:
+                return "Type de playlist inconnu"
+    return "Pas une playlist"
+
+
+
+
+#------------------------------------------------------------------#
 #                     Crée un répertoire s'il n'existe pas        #
 #------------------------------------------------------------------#
 def create_directory(path):

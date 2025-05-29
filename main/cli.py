@@ -135,12 +135,14 @@ def show_playlist_videos(downloader, url):
         print_error("L'URL fournie n'est pas une playlist")
         return
     
+    playlist_type = get_playlist_type(url)
+    print_info(f"Type: {playlist_type}")
+    
     videos = downloader.list_playlist_videos(url)
-    print(get_playlist_type(url))
     if videos:
         print_info(f"=== Vidéos de la playlist ({len(videos)} vidéos) ===")
         for video in videos:
-            if video['duration'] and isinstance(video['duration'], (int, float)):
+            if video['duration'] and isinstance(video['duration'], (int, float)) and video['duration'] > 0:
                 duration_seconds = int(video['duration'])
                 duration_str = f"{duration_seconds//60}:{duration_seconds%60:02d}"
             else:
@@ -155,6 +157,11 @@ def show_playlist_videos(downloader, url):
                 break
     else:
         print_error("Impossible de récupérer la liste des vidéos")
+        print_info("Cela peut arriver si :")
+        print("  - La playlist est privée")
+        print("  - La playlist n'existe plus")
+        print("  - Problème de connexion")
+        print("  - Restrictions géographiques")
 
 
 

@@ -194,26 +194,83 @@ class YouTubeDownloader:
             return []
         
         try:
-            ydl_opts = {'quiet': True, 'extract_flat': True}
+            # Pour les playlists normales, on a besoin d'extraire plus d'informations
+            ydl_opts = {
+                'quiet': True, 
+                'extract_flat': False,  # Changé de True à False pour avoir plus d'infos
+                'skip_download': True,
+                'ignoreerrors': True,
+                'no_warnings': True
+            }
+            
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                print_info("Récupération des informations de la playlist...")
                 info = ydl.extract_info(url, download=False)
+                
+                if not info:
+                    print_error("Impossible d'extraire les informations de la playlist")
+                    return []
+                
+                entries = info.get('entries', [])
+                if not entries:
+                    print_error("Aucune vidéo trouvée dans la playlist")
+                    return []
+                
                 videos = []
-                for i, entry in enumerate(info.get('entries', []), 1):
-                    if entry:
-                        duration = entry.get('duration', 0)
-                        if duration and isinstance(duration, (int, float)):
-                            duration = int(duration)
-                        else:
-                            duration = 0
-                        
-                        videos.append({
-                            'index': i,
-                            'title': entry.get('title', 'N/A'),
-                            'id': entry.get('id', 'N/A'),
-                            'duration': duration,
-                            'url': f"https://www.youtube.com/watch?v={entry.get('id', '')}"
-                        })
+                for i, entry in enumerate(entries, 1):
+                    if entry is None:
+                        continue
+                    
+                    # Gestion robuste de la durée
+                    duration = entry.get('duration', 0)
+                    if duration and isinstance(duration, (int, float)):
+                        duration = int(duration)
+                    else:
+                        duration = 0
+                    
+                    # Gestion du titre
+                    title = entry.get('title', entry.get('webpage_url_basename', f'Vidéo {i}'))
+                    if not title or title == 'N/A':
+                        title = f'Vidéo {i}'
+                    
+                    # Gestion de l'ID
+                    video_id = entry.get('id', entry.get('display_id', ''))
+                    
+                    videos.append({
+                        'index': i,
+                        'title': title,
+                        'id': video_id,
+                        'duration': duration,
+                        'url': entry.get('webpage_url', f"https://www.youtube.com/watch?v={video_id}")
+                    })
+                
+                print_info(f"Récupération terminée : {len(videos)} vidéos trouvées")
                 return videos
+                
         except Exception as e:
             print_error(f"Erreur lors de la récupération de la playlist: {str(e)}")
-            return []
+            # Tentative avec extract_flat=True en fallback
+            try:
+                print_info("Tentative avec méthode alternative...")
+                ydl_opts_fallback = {
+                    'quiet': True, 
+                    'extract_flat': True,
+                    'ignoreerrors': True
+                }
+                
+                with yt_dlp.YoutubeDL(ydl_opts_fallback) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                    videos = []
+                    for i, entry in enumerate(info.get('entries', []), 1):
+                        if entry:
+                            videos.append({
+                                'index': i,
+                                'title': entry.get('title', f'Vidéo {i}'),
+                                'id': entry.get('id', ''),
+                                'duration': 0,  # Pas de durée en mode flat
+                                'url': f"https://www.youtube.com/watch?v={entry.get('id', '')}"
+                            })
+                    return videos
+            except Exception as e2:
+                print_error(f"Erreur avec méthode alternative: {str(e2)}")
+                return []

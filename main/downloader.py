@@ -21,7 +21,7 @@ class YouTubeDownloader:
 
 
     #------------------------------------------------------------------#
-    #                     Télécharge une vidéo ou playlist YouTube    #
+    #               Télécharge une vidéo ou playlist YouTube           #
     #------------------------------------------------------------------#
     def download_video(self, url, quality="best", format_type="video", audio_only=False, playlist_start=1, playlist_end=None):
         if not is_valid_youtube_url(url):
@@ -139,7 +139,7 @@ class YouTubeDownloader:
 
 
     #------------------------------------------------------------------#
-    #                     Obtient les informations de la vidéo        #
+    #                     Obtient les informations de la vidéo         #
     #------------------------------------------------------------------#
     def get_video_info(self, url):
         if not is_valid_youtube_url(url):
@@ -194,10 +194,9 @@ class YouTubeDownloader:
             return []
         
         try:
-            # Pour les playlists normales, on a besoin d'extraire plus d'informations
             ydl_opts = {
                 'quiet': True, 
-                'extract_flat': False,  # Changé de True à False pour avoir plus d'infos
+                'extract_flat': False,
                 'skip_download': True,
                 'ignoreerrors': True,
                 'no_warnings': True
@@ -221,7 +220,6 @@ class YouTubeDownloader:
                     if entry is None:
                         continue
                     
-                    # Gestion robuste de la durée
                     duration = entry.get('duration', 0)
                     if duration and isinstance(duration, (int, float)):
                         duration = int(duration)
@@ -267,7 +265,7 @@ class YouTubeDownloader:
                                 'index': i,
                                 'title': entry.get('title', f'Vidéo {i}'),
                                 'id': entry.get('id', ''),
-                                'duration': 0,  # Pas de durée en mode flat
+                                'duration': 0,
                                 'url': f"https://www.youtube.com/watch?v={entry.get('id', '')}"
                             })
                     return videos

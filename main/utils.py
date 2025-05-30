@@ -140,7 +140,7 @@ def print_warning(message):
 def print_progress(current, total, title=""):
     try:
         if current is None or total is None or total == 0:
-            print(f"\r{Fore.CYAN}[{'?' * 30}] ?.?% (N/A) {title[:50]}{Style.RESET_ALL}", end='', flush=True)
+            print(f"\r{Fore.CYAN}[{'_' * 30}] ?.?% (N/A) {title[:50]}{Style.RESET_ALL}", end='', flush=True)
             return
         
         percentage = (current / total) * 100
@@ -149,4 +149,4 @@ def print_progress(current, total, title=""):
         bar = '█' * filled_length + '-' * (bar_length - filled_length)
         print(f"\r{Fore.CYAN}[{bar}] {percentage:.1f}% ({current}/{total}) {title[:50]}{Style.RESET_ALL}", end='', flush=True)
     except (TypeError, ZeroDivisionError, ValueError):
-        print(f"\r{Fore.CYAN}[{'?' * 30}] ?.?% (N/A) {title[:50]}{Style.RESET_ALL}", end='', flush=True)
+        print(f"\r{Fore.CYAN}[{'_' * 30}] ?.?% (N/A) {title[:50]}{Style.RESET_ALL}", end='', flush=True)

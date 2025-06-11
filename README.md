@@ -1,5 +1,7 @@
 # YouTube Downloader
 
+[![PyPI](https://img.shields.io/pypi/v/ytb-download?registry_uri=https://pypi.org/simple/)](https://pypi.org/project/ytb-download/)
+
 Un utilitaire simple et efficace pour télécharger des vidéos YouTube et des playlists entières avec choix de qualité et répertoire personnalisable.
 
 

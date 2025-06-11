@@ -2,6 +2,7 @@
 
 Un utilitaire simple et efficace pour télécharger des vidéos YouTube et des playlists entières avec choix de qualité et répertoire personnalisable.
 
+
 ## Installation
 
 ### Installation depuis les sources

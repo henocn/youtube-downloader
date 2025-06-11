@@ -1,5 +1,26 @@
 from setuptools import setup, find_packages
+from setuptools.command.install import install
 import os
+import sys
+import sysconfig
+import subprocess
+
+class PostInstallCommand(install):
+    def run(self):
+        install.run(self)
+        if sys.platform.startswith('win'):
+            self._add_to_path_windows()
+    
+    def _add_to_path_windows(self):
+        scripts_dir = sysconfig.get_path('scripts')
+        current_path = os.environ.get('PATH', '')
+        
+        if scripts_dir not in current_path:
+            try:
+                subprocess.run(f'setx PATH "%PATH%;{scripts_dir}"', 
+                             shell=True, capture_output=True, check=True)
+            except:
+                pass
 
 def safe_read(filename, default=""):
     if not os.path.exists(filename):
@@ -28,8 +49,8 @@ REQUIREMENTS = [
 long_description = safe_read("README.md", "YouTube Downloader - Un téléchargeur YouTube simple et efficace")
 
 setup(
-    name="youtube-downloader",
-    version="1.0.0",
+    name="ytb-download",
+    version="1.0.2",
     author="Henoc N'GASAMA",
     author_email="ngasamah@gmail.com",
     description="Un téléchargeur YouTube simple et efficace",
@@ -54,8 +75,11 @@ setup(
     install_requires=REQUIREMENTS,
     entry_points={
         "console_scripts": [
-            "yt-download=main.cli:main",
+            "ytb-download=main.cli:main",
         ],
+    },
+    cmdclass={
+        'install': PostInstallCommand,
     },
     include_package_data=True,
 )

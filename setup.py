@@ -22,7 +22,7 @@ def safe_read(filename, default=""):
 REQUIREMENTS = [
     "click==8.2.1",
     "colorama==0.4.6", 
-    "yt-dlp==2025.5.22",
+    "yt-dlp>=2024.12.13",
 ]
 
 long_description = safe_read("README.md", "YouTube Downloader - Un téléchargeur YouTube simple et efficace")

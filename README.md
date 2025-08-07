@@ -17,11 +17,11 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### Installation des dépendances uniquement
-
-```bash
-pip install yt-dlp click colorama
+### Installation en production
 ```
+pip install ytb-downloader
+```
+
 
 ## Utilisation
 
@@ -132,30 +132,6 @@ Downloads/youtube-downloads/
 
 - Python 3.8+
 - FFmpeg (pour la conversion audio)
-
-### Installation de FFmpeg
-
-#### Windows
-Télécharger depuis [ffmpeg.org](https://ffmpeg.org/download.html) et ajouter au PATH
-
-#### macOS
-```bash
-brew install ffmpeg
-```
-
-#### Ubuntu/Debian
-```bash
-sudo apt update
-sudo apt install ffmpeg
-```
-
-## Dépannage
-
-### Erreur "FFmpeg not found"
-Assurez-vous que FFmpeg est installé et accessible dans votre PATH.
-
-### Erreur de permissions
-Vérifiez que vous avez les droits d'écriture dans le répertoire de destination.
 
 ### Vidéos non disponibles dans une playlist
 L'outil ignore automatiquement les vidéos privées ou supprimées et continue avec les suivantes.

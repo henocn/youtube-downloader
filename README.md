@@ -17,10 +17,10 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### Installation des dépendances uniquement
+### Installation depuis pypi
 
 ```bash
-pip install yt-dlp click colorama
+pip install yt-download
 ```
 
 ## Utilisation

@@ -7,22 +7,11 @@ Un utilitaire simple et efficace pour télécharger des vidéos YouTube et des p
 
 ## Installation
 
-### Installation depuis les sources
-
-```bash
-git clone https://github.com/henocn/youtube-downloader.git
-cd youtube-downloader
-py -m venv env && env\Scripts\activate
-pip install -r requirements.txt
-pip install -e .
-```
-
 ### Installation depuis pypi
 
 ```bash
 pip install ytb-download
 ```
-
 
 ## Utilisation
 

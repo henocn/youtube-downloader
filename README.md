@@ -121,7 +121,7 @@ Downloads/youtube-downloads/
 ## Prérequis
 
 - Python 3.8+
-- FFmpeg (pour la conversion audio)
+- FFmpeg pour la conversion audio (généralement forcément pas réquise)
 
 ### Vidéos non disponibles dans une playlist
 L'outil ignore automatiquement les vidéos privées ou supprimées et continue avec les suivantes.

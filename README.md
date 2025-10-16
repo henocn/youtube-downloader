@@ -7,24 +7,11 @@ Un utilitaire simple et efficace pour télécharger des vidéos YouTube et des p
 
 ## Installation
 
-### Installation depuis les sources
-
-```bash
-git clone https://github.com/henocn/youtube-downloader.git
-cd youtube-downloader
-py -m venv env && env\Scripts\activate
-pip install -r requirements.txt
-pip install -e .
-```
-
 ### Installation depuis pypi
 
 ```bash
-pip install yt-download
+pip install ytb-download
 ```
-pip install ytb-downloader
-```
-
 
 ## Utilisation
 
@@ -32,10 +19,10 @@ pip install ytb-downloader
 
 ```bash
 # Vidéo unique
-yt-download "https://www.youtube.com/watch?v=VIDEO_ID"
+ytb-download "https://www.youtube.com/watch?v=VIDEO_ID"
 
 # Playlist entière
-yt-download "https://www.youtube.com/playlist?list=PLAYLIST_ID"
+ytb-download "https://www.youtube.com/playlist?list=PLAYLIST_ID"
 ```
 
 ### Options disponibles
@@ -56,37 +43,37 @@ yt-download "https://www.youtube.com/playlist?list=PLAYLIST_ID"
 
 #### Téléchargement de vidéo unique
 ```bash
-yt-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+ytb-download "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ```
 
 #### Téléchargement de playlist entière
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl"
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl"
 ```
 
 #### Téléchargement partiel de playlist (vidéos 5 à 10)
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -ps 5 -pe 10
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -ps 5 -pe 10
 ```
 
 #### Téléchargement playlist en audio MP3 uniquement
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -a -f mp3
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -a -f mp3
 ```
 
 #### Lister les vidéos d'une playlist
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -lv
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -lv
 ```
 
 #### Informations d'une playlist
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -i
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -i
 ```
 
 #### Téléchargement playlist en 720p dans dossier spécifique
 ```bash
-yt-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -q 720p -o "C:\Downloads\MaPlaylist"
+ytb-download "https://www.youtube.com/playlist?list=PLrAXtmRdnEQy6nuLMHjMZOz59Oq3KuQEl" -q 720p -o "C:\Downloads\MaPlaylist"
 ```
 
 ## Organisation des fichiers
@@ -134,7 +121,7 @@ Downloads/youtube-downloads/
 ## Prérequis
 
 - Python 3.8+
-- FFmpeg (pour la conversion audio)
+- FFmpeg pour la conversion audio (généralement forcément pas réquise)
 
 ### Vidéos non disponibles dans une playlist
 L'outil ignore automatiquement les vidéos privées ou supprimées et continue avec les suivantes.

@@ -50,7 +50,7 @@ long_description = safe_read("README.md", "YouTube Downloader - Un téléchargeu
 
 setup(
     name="ytb-download",
-    version="1.0.2",
+    version="1.2.0",
     author="Henoc N'GASAMA",
     author_email="ngasamah@gmail.com",
     description="Un téléchargeur YouTube simple et efficace",
